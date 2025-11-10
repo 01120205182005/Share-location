@@ -35,31 +35,3 @@ document.getElementById('getLoc').addEventListener('click', () => {
       accuracy: pos.coords.accuracy,
       timestamp: pos.timestamp
     };
-
-    status.textContent = 'Location obtained:\n' + JSON.stringify(coords, null, 2);
-
-    // Replace with your HTTPS endpoint
-    try {
-      const resp = await fetch('https://example.com/location-webhook', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(coords)
-      });
-      if (resp.ok) {
-        status.textContent += '\nSuccessfully sent to the server.';
-      } else {
-        status.textContent += '\nError sending to the server: ' + resp.status;
-      }
-    } catch (err) {
-      status.textContent += '\nNetwork failure: ' + err;
-    }
-
-  }, (err) => {
-    status.textContent = 'Permission denied or error: ' + err.message;
-  }, {
-    enableHighAccuracy: true,
-    timeout: 15000
-  });
-});
-</script></body>
-</html>
